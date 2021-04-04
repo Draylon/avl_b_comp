@@ -69,7 +69,7 @@ ambos estão disponíveis para Windows, através do [Chocolatey](https://chocola
 ## :white_check_mark: Dependências ##
 
  - Baixar o repositório utilizando o [Git](https://git-scm.com) ou [Link do ZIP](https://github.com/Draylon/avl_b_comp/archive/refs/heads/master.zip).
- - [Compilador de C++](https://gcc.gnu.org/)
+ - [Compilador de C](https://gcc.gnu.org/)
  - [Make](http://gnuwin32.sourceforge.net/packages/make.htm) para compilar automáticamente ( Opcional ).
 
 
