@@ -5,7 +5,7 @@
 #include "b.h"
 
 int* random_array(const int size){
-    int rand_array[size];
+    int* rand_array = malloc(sizeof(int)*size);
     int ii=0;
     while(ii < size){
         int r_int = rand();
@@ -22,13 +22,7 @@ int* random_array(const int size){
         }else
             continue;
     }
-
-    for(int iitt=0;iitt<5;iitt++){
-        for(int iit=0;iit < 8;iit++){
-            printf("%d ",rand_array[iit+8*iitt]);
-        }
-        printf("\n");
-    }
+    return rand_array;
 }
 
 int main(){
@@ -36,7 +30,19 @@ int main(){
     
 
     int* rand_array = random_array(40);
+    /*for(int iitt=0;iitt<5;iitt++){
+        for(int iit=0;iit < 8;iit++){
+            printf("%d ",rand_array[iit+8*iitt]);
+        }
+        printf("\n");
+    }*/
 
+    ArvoreB* arvore = criaArvore(1);
+    for(int i=0;i < 40;i++){
+        adicionaChave(arvore,rand_array[i]);
+    }
+    percorreArvore(arvore->raiz);
+    printf("\nNumero de operacoes %d\n", contadorB);
     
     /*ArvoreB* arvore = criaArvore(1);
     adicionaChave(arvore, 12);
