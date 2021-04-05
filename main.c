@@ -37,24 +37,52 @@ int main(){
         printf("\n");
     }*/
 
-    ArvoreB* arvore = criaArvore(1);
+    /*
     for(int i=0;i < 40;i++){
         adicionaChave(arvore,rand_array[i]);
     }
-    percorreArvore(arvore->raiz);
-    printf("\nNumero de operacoes %d\n", contadorB);
+    */
     
-    /*ArvoreB* arvore = criaArvore(1);
-    adicionaChave(arvore, 12);
-    adicionaChave(arvore, 3);
-    adicionaChave(arvore, 5);
-    adicionaChave(arvore, 7);
-    adicionaChave(arvore, 15);
-    adicionaChave(arvore, 99);
-    adicionaChave(arvore, 1);
-    adicionaChave(arvore, 94);
+    ArvoreB* arvore1 = criaArvore(1);    
+    adicionaChave(arvore1, 235);
+    adicionaChave(arvore1, 209);
+    adicionaChave(arvore1, 190);
+    adicionaChave(arvore1, 181);
+    adicionaChave(arvore1, 153);
+    adicionaChave(arvore1, 120);
+    adicionaChave(arvore1, 114);
+    adicionaChave(arvore1, 104);
+    adicionaChave(arvore1, 99);
+    adicionaChave(arvore1, 94);
+    adicionaChave(arvore1, 15);
+    adicionaChave(arvore1, 12);
+    adicionaChave(arvore1, 7);
+    adicionaChave(arvore1, 5);
+    adicionaChave(arvore1, 3);
+    adicionaChave(arvore1, 1);
+    percorreArvore(arvore1->raiz);
+    printf("\nNumero de operacoes %d\n", contadorB);
+    contadorB=0;
 
-    percorreArvore(arvore->raiz);
+    ArvoreB* arvore2 = criaArvore(1);
+    adicionaChave(arvore2, 1);
+    adicionaChave(arvore2, 3);
+    adicionaChave(arvore2, 5);
+    adicionaChave(arvore2, 7);
+    adicionaChave(arvore2, 12);
+    adicionaChave(arvore2, 15);
+    adicionaChave(arvore2, 94);
+    adicionaChave(arvore2, 99);
+    adicionaChave(arvore2, 104);
+    adicionaChave(arvore2, 114);
+    adicionaChave(arvore2, 120);
+    adicionaChave(arvore2, 153);
+    adicionaChave(arvore2, 181);
+    adicionaChave(arvore2, 190);
+    adicionaChave(arvore2, 209);
+    adicionaChave(arvore2, 235);
+    
+    percorreArvore(arvore2->raiz);
 
-    printf("\nNumero de operacoes %d\n", contadorB);*/
+    printf("\nNumero de operacoes %d\n", contadorB);
 }
