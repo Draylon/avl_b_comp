@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include "b.h"
 
+contadorB=0;
+
+
 ArvoreB* criaArvore(int ordem) {
     ArvoreB* a = malloc(sizeof(ArvoreB));
     a->ordem = ordem;

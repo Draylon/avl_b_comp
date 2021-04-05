@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "avl.h"
 
+contadorAvl=0;
+
 ArvoreAvl* criar() {
     ArvoreAvl *arvore = malloc(sizeof(ArvoreAvl));
     arvore->raiz = NULL;
@@ -12,7 +14,6 @@ ArvoreAvl* criar() {
 int vazia(ArvoreAvl* arvore) {
     return arvore->raiz == NULL;
 }
-
 
 AvlNode* adicionarNo(AvlNode* no, int valor) {
     contadorAvl++;

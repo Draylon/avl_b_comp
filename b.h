@@ -1,6 +1,8 @@
 #ifndef B_HPP
 #define B_HPP
 
+extern int contadorB;
+
 typedef struct nob {
     int total;
     int* chaves;
@@ -13,7 +15,7 @@ typedef struct arvoreB {
   int ordem;
 } ArvoreB;
 
-static int contadorB=0;
+
 
 ArvoreB* criaArvore(int);
 BNode* criaNo(ArvoreB*);

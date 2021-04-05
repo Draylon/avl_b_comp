@@ -1,6 +1,8 @@
 #ifndef AVL_HPP
 #define AVL_HPP
 
+extern int contadorAvl;
+
 typedef struct noavl {
     struct noavl* pai;
     struct noavl* esquerda;
@@ -11,8 +13,6 @@ typedef struct noavl {
 typedef struct arvore {
     struct noavl* raiz;
 } ArvoreAvl;
-
-static int contadorAvl=0;
 
 ArvoreAvl* criar();
 int vazia(ArvoreAvl *arvore);
