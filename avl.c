@@ -1,41 +1,26 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "avl.h"
 
-typedef struct no {
-    struct no* pai;
-    struct no* esquerda;
-    struct no* direita;
-    int valor;
-} No;
-
-typedef struct arvore {
-    struct no* raiz;
-} Arvore;
-
-void balanceamento(Arvore*, No*);
-int altura(No*);
-int fb(No*);
-No* rsd(Arvore*, No*);
-No* rse(Arvore*, No*);
-No* rdd(Arvore*, No*);
-No* rde(Arvore*, No*);
-
-Arvore* criar() {
-    Arvore *arvore = malloc(sizeof(Arvore));
+ArvoreAvl* criar() {
+    ArvoreAvl *arvore = malloc(sizeof(ArvoreAvl));
     arvore->raiz = NULL;
   
     return arvore;
 }
 
-int vazia(Arvore* arvore) {
+int vazia(ArvoreAvl* arvore) {
     return arvore->raiz == NULL;
 }
 
-No* adicionarNo(No* no, int valor) {
+
+AvlNode* adicionarNo(AvlNode* no, int valor) {
+    contadorAvl++;
+
     if (valor > no->valor) {
         if (no->direita == NULL) {
             printf("Adicionando %d\n",valor);
-            No* novo = malloc(sizeof(No));
+            AvlNode* novo = malloc(sizeof(AvlNode));
             novo->valor = valor;
             novo->pai = no;
 
@@ -48,7 +33,7 @@ No* adicionarNo(No* no, int valor) {
     } else {
         if (no->esquerda == NULL) {
             printf("Adicionando %d\n",valor);
-            No* novo = malloc(sizeof(No));
+            AvlNode* novo = malloc(sizeof(AvlNode));
 			novo->valor = valor;
             novo->pai = no;
 			
@@ -61,24 +46,24 @@ No* adicionarNo(No* no, int valor) {
     }
 }
 
-No* adicionar(Arvore* arvore, int valor) {
+AvlNode* adicionar(ArvoreAvl* arvore, int valor) {
     if (arvore->raiz == NULL) {
         printf("Adicionando %d\n",valor);
-        No* novo = malloc(sizeof(No));
+        AvlNode* novo = malloc(sizeof(AvlNode));
         novo->valor = valor;
         
         arvore->raiz = novo;
 			
         return novo;
     } else {
-        No* no = adicionarNo(arvore->raiz, valor);
+        AvlNode* no = adicionarNo(arvore->raiz, valor);
         balanceamento(arvore, no);
         
         return no;
     }
 }
 
-void remover(Arvore* arvore, No* no) {
+void remover(ArvoreAvl* arvore, AvlNode* no) {
     if (no->esquerda != NULL) {
         remover(arvore, no->esquerda); 
     }
@@ -100,7 +85,7 @@ void remover(Arvore* arvore, No* no) {
     free(no);
 }
 
-No* localizar(No* no, int valor) {
+AvlNode* localizar(AvlNode* no, int valor) {
     if (no->valor == valor) {
         return no;
     } else {
@@ -118,7 +103,7 @@ No* localizar(No* no, int valor) {
     return NULL;
 }
 
-void percorrerProfundidadeInOrder(No* no, void (*callback)(int)) {
+void percorrerProfundidadeInOrder(AvlNode* no, void (*callback)(int)) {
     if (no != NULL) {
         percorrerProfundidadeInOrder(no->esquerda,callback);
         callback(no->valor);
@@ -126,7 +111,7 @@ void percorrerProfundidadeInOrder(No* no, void (*callback)(int)) {
     }
 }
 
-void percorrerProfundidadePreOrder(No* no, void (*callback)(int)) {
+void percorrerProfundidadePreOrder(AvlNode* no, void (*callback)(int)) {
     if (no != NULL) {
         callback(no->valor);
         percorrerProfundidadePreOrder(no->esquerda,callback);
@@ -134,7 +119,7 @@ void percorrerProfundidadePreOrder(No* no, void (*callback)(int)) {
     }
 }
 
-void percorrerProfundidadePosOrder(No* no, void (callback)(int)) {
+void percorrerProfundidadePosOrder(AvlNode* no, void (callback)(int)) {
     if (no != NULL) {
         percorrerProfundidadePosOrder(no->esquerda,callback);
         percorrerProfundidadePosOrder(no->direita,callback);
@@ -146,7 +131,7 @@ void visitar(int valor){
     printf("%d ", valor);
 }
 
-void balanceamento(Arvore* arvore, No* no) {
+void balanceamento(ArvoreAvl* arvore, AvlNode* no) {
     while (no != NULL) {
         int fator = fb(no);
 
@@ -174,7 +159,8 @@ void balanceamento(Arvore* arvore, No* no) {
     }
 }
 
-int altura(No* no){
+int altura(AvlNode* no){
+    contadorAvl++;
     int esquerda = 0,direita = 0;
 
     if (no->esquerda != NULL) {
@@ -188,7 +174,7 @@ int altura(No* no){
     return esquerda > direita ? esquerda : direita; //max(esquerda,direita)
 }
 
-int fb(No* no) {
+int fb(AvlNode* no) { // acho que não conta como operação
     int esquerda = 0,direita = 0;
   
     if (no->esquerda != NULL) {
@@ -202,9 +188,10 @@ int fb(No* no) {
     return esquerda - direita;
 }
 
-No* rse(Arvore* arvore, No* no) {
-    No* pai = no->pai;
-    No* direita = no->direita;
+AvlNode* rse(ArvoreAvl* arvore, AvlNode* no) {
+    contadorAvl++;
+    AvlNode* pai = no->pai;
+    AvlNode* direita = no->direita;
   
     no->direita = direita->esquerda;
     no->pai = direita;
@@ -225,9 +212,10 @@ No* rse(Arvore* arvore, No* no) {
     return direita;
 }
 
-No* rsd(Arvore* arvore, No* no) {
-    No* pai = no->pai;
-    No* esquerda = no->esquerda;
+AvlNode* rsd(ArvoreAvl* arvore, AvlNode* no) {
+    contadorAvl++;
+    AvlNode* pai = no->pai;
+    AvlNode* esquerda = no->esquerda;
   
     no->esquerda = esquerda->direita;
     no->pai = esquerda;
@@ -248,18 +236,20 @@ No* rsd(Arvore* arvore, No* no) {
     return esquerda;
 }
 
-No* rde(Arvore* arvore, No* no) {
+AvlNode* rde(ArvoreAvl* arvore, AvlNode* no) {
+    contadorAvl++;
     no->direita = rsd(arvore, no->direita);
     return rse(arvore, no);
 }
 
-No* rdd(Arvore* arvore, No* no) {
+AvlNode* rdd(ArvoreAvl* arvore, AvlNode* no) {
+    contadorAvl++;
     no->esquerda = rse(arvore, no->esquerda);
     return rsd(arvore, no);
 }
 
-int main() {
-    Arvore* a = criar();
+/*int main() {
+    ArvoreAvl* a = criar();
 
     for (int i = 1; i <= 7; i++) {
         adicionar(a,i);  
@@ -268,4 +258,4 @@ int main() {
     printf("In-order: ");
     percorrerProfundidadeInOrder(a->raiz,visitar);
     printf("\n");
-}
+}*/

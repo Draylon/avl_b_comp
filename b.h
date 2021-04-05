@@ -1,0 +1,30 @@
+#ifndef B_HPP
+#define B_HPP
+
+typedef struct nob {
+    int total;
+    int* chaves;
+    struct nob** filhos;
+    struct nob* pai; 
+} BNode;
+
+typedef struct arvoreB {
+  BNode* raiz;
+  int ordem;
+} ArvoreB;
+
+static int contadorB=0;
+
+ArvoreB* criaArvore(int);
+BNode* criaNo(ArvoreB*);
+void percorreArvore(BNode*);
+int pesquisaBinaria(BNode*, int);
+int localizaChave(ArvoreB*, int);
+BNode* localizaNo(ArvoreB*, int);
+void adicionaChaveNo(BNode*, BNode*, int);
+int transbordo(ArvoreB*,BNode*);
+BNode* divideNo(ArvoreB*, BNode*);
+void adicionaChaveRecursivo(ArvoreB*, BNode*, BNode*, int);
+void adicionaChave(ArvoreB*, int);
+
+#endif
