@@ -7,7 +7,6 @@ contadorAvl=0;
 ArvoreAvl* criar() {
     ArvoreAvl *arvore = malloc(sizeof(ArvoreAvl));
     arvore->raiz = NULL;
-  
     return arvore;
 }
 
