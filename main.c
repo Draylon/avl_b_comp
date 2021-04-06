@@ -80,7 +80,6 @@ int main(){
     
     ArvoreAvl* arvore1 = criar();
     adicionar(arvore1, 235);
-    printf("-- %d\n",arvore1->raiz->valor);
     adicionar(arvore1, 209);
     adicionar(arvore1, 190);
     adicionar(arvore1, 181);
@@ -96,11 +95,11 @@ int main(){
     adicionar(arvore1, 5);
     adicionar(arvore1, 3);
     adicionar(arvore1, 1);
-    percorreArvore(arvore1->raiz);
+    percorrerProfundidadeInOrder(arvore1->raiz,visitar);
     printf("\nNumero de operacoes %d\n", contadorAvl);
     contadorAvl=0;
 
-    ArvoreAvl* arvore2 =criar();
+    /*ArvoreAvl* arvore2 =criar();
     adicionar(arvore2, 1);
     adicionar(arvore2, 3);
     adicionar(arvore2, 5);
@@ -120,5 +119,5 @@ int main(){
     
     percorreArvore(arvore2->raiz);
 
-    printf("\nNumero de operacoes %d\n", contadorAvl);
+    printf("\nNumero de operacoes %d\n", contadorAvl);*/
 }

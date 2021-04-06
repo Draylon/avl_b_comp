@@ -23,6 +23,8 @@ AvlNode* adicionarNo(AvlNode* no, int valor) {
             AvlNode* novo = malloc(sizeof(AvlNode));
             novo->valor = valor;
             novo->pai = no;
+            novo->esquerda=NULL;
+            novo->direita=NULL;
 
             no->direita = novo;
 				
@@ -34,11 +36,12 @@ AvlNode* adicionarNo(AvlNode* no, int valor) {
         if (no->esquerda == NULL) {
             printf("Adicionando %d\n",valor);
             AvlNode* novo = malloc(sizeof(AvlNode));
+            
 			novo->valor = valor;
             novo->pai = no;
-			
+			novo->direita=NULL;
+            novo->esquerda=NULL;
             no->esquerda = novo;
-			
             return novo;
         } else {
             return adicionarNo(no->esquerda, valor);
@@ -51,9 +54,11 @@ AvlNode* adicionar(ArvoreAvl* arvore, int valor) {
         printf("Adicionando %d\n",valor);
         AvlNode* novo = malloc(sizeof(AvlNode));
         novo->valor = valor;
-        
+        novo->direita=NULL;
+        novo->esquerda=NULL;
+        novo->pai=NULL;
         arvore->raiz = novo;
-			
+		
         return novo;
     } else {
         AvlNode* no = adicionarNo(arvore->raiz, valor);
@@ -134,7 +139,6 @@ void visitar(int valor){
 void balanceamento(ArvoreAvl* arvore, AvlNode* no) {
     while (no != NULL) {
         int fator = fb(no);
-
         if (fator > 1) { //árvore mais pesada para esquerda
             //rotação para a direita
             if (fb(no->esquerda) > 0) {
@@ -154,8 +158,7 @@ void balanceamento(ArvoreAvl* arvore, AvlNode* no) {
                 rde(arvore, no); //rotação dupla a esquerda, pois o FB do filho tem sinal diferente
             }
         }
-
-        no = no->pai; 
+        no = no->pai;
     }
 }
 
@@ -184,7 +187,6 @@ int fb(AvlNode* no) { // acho que não conta como operação
     if (no->direita != NULL) {
         direita = altura(no->direita) + 1;
     }
-  
     return esquerda - direita;
 }
 
