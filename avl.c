@@ -124,7 +124,7 @@ void percorrerProfundidadePreOrder(AvlNode* no, void (*callback)(int)) {
     }
 }
 
-void percorrerProfundidadePosOrder(AvlNode* no, void (callback)(int)) {
+void percorrerProfundidadePosOrder(AvlNode* no, void (*callback)(int)) {
     if (no != NULL) {
         percorrerProfundidadePosOrder(no->esquerda,callback);
         percorrerProfundidadePosOrder(no->direita,callback);
@@ -248,6 +248,10 @@ AvlNode* rdd(ArvoreAvl* arvore, AvlNode* no) {
     contadorAvl++;
     no->esquerda = rse(arvore, no->esquerda);
     return rsd(arvore, no);
+}
+
+freeAvl(ArvoreAvl* arvore){
+    
 }
 
 /*int main() {

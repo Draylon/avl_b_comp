@@ -2,21 +2,23 @@
 #include <time.h>
 #include <stdlib.h>
 #include "avl.h"
-//#include "b.h"
+#include "b.h"
+#define SAMPLING 10
+#define RANGE 100
 
 int* random_array(const int size,const int order){
     int* rand_array = malloc(sizeof(int)*size);
     int ii=0;
     while(ii < size){
-        int r_int = rand();
+        int r_int = rand() % 200; // numeros de 0 a 200
 
         int match=0; // BOOL
         for(int iic=0;iic < ii;iic++){
-            if(order == 0)
+            if(order == 0) // Totalmente aleatório
                 if(rand_array[iic] == r_int){match=1;break;}
-            else if(order ==1)
+            else if(order ==1) // Crescente
                 if(rand_array[iic] <= r_int){match=1;break;}
-            else if(order ==-1)
+            else if(order ==-1) // Decrescente
                 if(rand_array[iic] >= r_int){match=1;break;}
         }
         if(match==0){
@@ -31,10 +33,63 @@ int* random_array(const int size,const int order){
 int main(){
     srand(time(NULL));
     
+    int grafico_avl[RANGE][3];
+    int grafico_b[RANGE][3];
 
-    int* rand_noorder = random_array(40,0);
-    int* rand_asc = random_array(40,1);
-    int* rand_desc = random_array(40,-1);
+    for(int i = 0;i < RANGE;i++){
+
+        ArvoreAvl* a1_rand = criar();
+        ArvoreAvl* a1_asc = criar();
+        ArvoreAvl* a1_desc = criar();
+        ArvoreB* a2_rand = criaArvore(1);
+        ArvoreB* a2_asc = criaArvore(1);
+        ArvoreB* a2_desc = criaArvore(1);
+
+        int* rand_noorder = random_array(i,0);
+        int* rand_asc = random_array(i,1);
+        int* rand_desc = random_array(i,-1);
+
+        for(int ii=0; ii < i;ii++){
+            adicionar(a1_rand,rand_noorder[ii]);
+            adicionaChave(a2_rand,rand_noorder[ii]);
+        }
+        percorrerProfundidadeInOrder(a1_rand->raiz,visitar);
+        percorreArvore(a2_rand->raiz);
+        printf("\nNumero de operacoes %d %d\n\n",contadorAvl, contadorB);
+        contadorAvl=0;
+        contadorB=0;
+        //====================
+        for(int ii=0; ii < i;ii++){
+            adicionar(a1_rand,rand_noorder[ii]);
+            adicionaChave(a2_rand,rand_noorder[ii]);
+        }
+        percorrerProfundidadeInOrder(a1_asc->raiz,visitar);
+        percorreArvore(a2_asc->raiz);
+        printf("\nNumero de operacoes %d %d\n\n",contadorAvl, contadorB);
+        contadorAvl=0;
+        contadorB=0;
+        //====================
+        for(int ii=0; ii < i;ii++){
+            adicionar(a1_desc,rand_noorder[ii]);
+            adicionaChave(a2_desc,rand_noorder[ii]);
+        }
+        percorrerProfundidadeInOrder(a1_desc->raiz,visitar);
+        percorreArvore(a2_desc->raiz);
+        printf("\nNumero de operacoes %d %d\n\n",contadorAvl, contadorB);
+        contadorAvl=0;
+        contadorB=0;
+
+        freeAvl(a1_asc,a1_asc->raiz);
+        freeAvl(a1_desc,a1_desc->raiz);
+        freeAvl(a1_rand);
+        freeB(a2_asc);
+        freeB(a2_desc);
+        freeB(a2_rand);
+        free(rand_noorder);
+        free(rand_asc);
+        free(rand_desc);
+    }
+    
     /*for(int iitt=0;iitt<5;iitt++){
         for(int iit=0;iit < 8;iit++){
             printf("%d ",rand_array[iit+8*iitt]);
@@ -78,7 +133,7 @@ int main(){
     contadorAvl=0;
     contadorB=0;*/
     
-    ArvoreAvl* arvore1 = criar();
+    /*ArvoreAvl* arvore1 = criar();
     adicionar(arvore1, 235);
     adicionar(arvore1, 209);
     adicionar(arvore1, 190);
@@ -99,7 +154,7 @@ int main(){
     printf("\nNumero de operacoes %d\n", contadorAvl);
     contadorAvl=0;
 
-    /*ArvoreAvl* arvore2 =criar();
+    ArvoreAvl* arvore2 =criar();
     adicionar(arvore2, 1);
     adicionar(arvore2, 3);
     adicionar(arvore2, 5);
