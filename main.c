@@ -10,7 +10,7 @@ int* random_array(const int size,const int order){
     int* rand_array = malloc(sizeof(int)*size);
     int ii=0;
     while(ii < size){
-        int r_int = rand() % 100; // numeros de 0 a 200
+        int r_int = rand() % 100; // numeros de 0 a 100
 
         int match=0; // BOOL
         for(int iic=0;iic < ii;iic++){
@@ -27,13 +27,29 @@ int* random_array(const int size,const int order){
         }else
             continue;
     }
+    /*for(int iasd=0;iasd < size;iasd++){
+        printf("%d ",rand_array[iasd]);
+    }
+    printf("\nfeito\n");*/
     return rand_array;
 }
 
 int main(){
     srand(time(NULL));
 
-    for(int i = 1;i <= RANGE;i++){
+    ArvoreAvl* a1 = criar();
+    int* rand_asd = random_array(100,0);
+    for(int i=0;i < 100;i++){
+        adicionar(a1,rand_asd[i]);
+    }
+    percorrerProfundidadeInOrder(a1->raiz,visitar);
+    printf("\nNumero de operacoes %d\n\n",contadorAvl);
+    freeAvl(a1);
+    free(rand_asd);
+
+    /*
+
+    for(int i = RANGE-1;i >= 0;i--){
         printf("\n-\n");
         int rand_avl = 0,rand_b = 0;
         for(int it=0;it < SAMPLING;it++){
@@ -105,6 +121,7 @@ int main(){
         
         //printf("\n||%d %d %d||\n",grafico_avl[0][0],grafico_avl[0][1],grafico_avl[0][2]);
     }
+
 
     /*for(int i=0;i < 5;i++){
         for(int j=0;j < 3;j++){

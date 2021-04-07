@@ -61,7 +61,7 @@ AvlNode* adicionar(ArvoreAvl* arvore, int valor) {
         arvore->raiz = novo;
 		
         return novo;
-    } else {
+    }else{
         AvlNode* no = adicionarNo(arvore->raiz, valor);
         balanceamento(arvore, no);
         
@@ -254,15 +254,24 @@ AvlNode* rdd(ArvoreAvl* arvore, AvlNode* no) {
 
 void freeAvl_rec(ArvoreAvl* arvore,AvlNode* node){
     if(node!=NULL){
+        printf("free %d\n",node->valor);
+        printf("esquerda\n");
         freeAvl_rec(arvore,node->esquerda);
+        printf("direita\n");
         freeAvl_rec(arvore,node->direita);
         free(node);
+        printf("freed node\n");
+    }else{
+        printf("null free");
     }
 }
 
 void freeAvl(ArvoreAvl* arvore){
+    printf("raiz %d\n",arvore->raiz->valor);
     freeAvl_rec(arvore,arvore->raiz);
+    printf("freed nodes\n");
     free(arvore);
+    printf("freed tree\n");
 }
 
 /*int main() {
