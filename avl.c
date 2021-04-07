@@ -261,8 +261,10 @@ void freeAvl_rec(ArvoreAvl* arvore,AvlNode* node){
     }
     free(node);
 }
+
 void freeAvl(ArvoreAvl* arvore){
-    freeAvl_rec(arvore,arvore->raiz);
+    if(arvore->raiz != NULL)
+        freeAvl_rec(arvore,arvore->raiz);
 }
 
 /*int main() {

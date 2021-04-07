@@ -18,7 +18,7 @@ BNode* criaNo(ArvoreB* arvore) {
     BNode* no = malloc(sizeof(BNode));
 
     no->pai = NULL;
-        
+    
     no->chaves = malloc(sizeof(int) * (max + 1));
     no->filhos = malloc(sizeof(BNode) * (max + 2));
     no->total = 0;
@@ -167,12 +167,20 @@ void adicionaChave(ArvoreB* arvore, int chave) {
 
 void freeB_rec(ArvoreB* arvore,BNode* no){
     free(no->chaves);
+    printf("free chaves\n");
     for(int i=0;i < no->total;i++){
-        freeB_rec(arvore,no->filhos[i]);
-        free(no->filhos[i]);
+        printf("free filho %d\n",i);
+        if(no->filhos[i] != NULL){
+            freeB_rec(arvore,no->filhos[i]);
+            free(no->filhos[i]);
+        }
+        printf("freed filho %d\n",i);
     }
     free(no);
 }
+
 void freeB(ArvoreB* arvore){
-    freeB_rec(arvore,arvore->raiz);
+    if(arvore->raiz != NULL){
+        freeB_rec(arvore,arvore->raiz);
+    }
 }

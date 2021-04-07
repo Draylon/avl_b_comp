@@ -36,7 +36,7 @@ int main(){
     int grafico_avl[RANGE][3];
     int grafico_b[RANGE][3];
 
-    for(int i = 0;i < RANGE;i++){
+    for(int i = 1;i <= 1;i++){
 
         ArvoreAvl* a1_rand = criar();
         ArvoreAvl* a1_asc = criar();
@@ -55,27 +55,33 @@ int main(){
         }
         percorrerProfundidadeInOrder(a1_rand->raiz,visitar);
         percorreArvore(a2_rand->raiz);
-        printf("\nNumero de operacoes %d %d\n\n",contadorAvl, contadorB);
+        printf("\nRand %d %d\n\n",contadorAvl, contadorB);
+        grafico_avl[i][0]=contadorAvl;
+        grafico_b[i][0]=contadorB;
         contadorAvl=0;
         contadorB=0;
         //====================
         for(int ii=0; ii < i;ii++){
-            adicionar(a1_rand,rand_noorder[ii]);
-            adicionaChave(a2_rand,rand_noorder[ii]);
+            adicionar(a1_asc,rand_asc[ii]);
+            adicionaChave(a2_asc,rand_asc[ii]);
         }
         percorrerProfundidadeInOrder(a1_asc->raiz,visitar);
         percorreArvore(a2_asc->raiz);
-        printf("\nNumero de operacoes %d %d\n\n",contadorAvl, contadorB);
+        printf("\nAsc %d %d\n\n",contadorAvl, contadorB);
+        grafico_avl[i][1]=contadorAvl;
+        grafico_b[i][1]=contadorB;
         contadorAvl=0;
         contadorB=0;
         //====================
         for(int ii=0; ii < i;ii++){
-            adicionar(a1_desc,rand_noorder[ii]);
-            adicionaChave(a2_desc,rand_noorder[ii]);
+            adicionar(a1_desc,rand_desc[ii]);
+            adicionaChave(a2_desc,rand_desc[ii]);
         }
         percorrerProfundidadeInOrder(a1_desc->raiz,visitar);
         percorreArvore(a2_desc->raiz);
-        printf("\nNumero de operacoes %d %d\n\n",contadorAvl, contadorB);
+        printf("\nDesc %d %d\n\n",contadorAvl, contadorB);
+        grafico_avl[i][2]=contadorAvl;
+        grafico_b[i][2]=contadorB;
         contadorAvl=0;
         contadorB=0;
 

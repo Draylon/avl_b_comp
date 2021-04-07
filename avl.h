@@ -32,4 +32,7 @@ AvlNode* rse(ArvoreAvl*, AvlNode*);
 AvlNode* rdd(ArvoreAvl*, AvlNode*);
 AvlNode* rde(ArvoreAvl*, AvlNode*);
 
+void freeAvl();
+void freeAvl_rec();
+
 #endif
