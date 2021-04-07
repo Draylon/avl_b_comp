@@ -32,16 +32,13 @@ int* random_array(const int size,const int order){
 
 int main(){
     srand(time(NULL));
-    
-    int grafico_avl[RANGE][3];
-    int grafico_b[RANGE][3];
 
     for(int i = 1;i <= 5;i++){
         
         int rand_avl = 0,rand_b = 0;
-        ArvoreAvl* a1_rand = criar();
-        ArvoreB* a2_rand = criaArvore(1);
         for(int it=0;it < SAMPLING;it++){
+            ArvoreAvl* a1_rand = criar();
+            ArvoreB* a2_rand = criaArvore(1);
             int* rand_noorder = random_array(i,0);
             for(int ii=0; ii < i;ii++){
                 adicionar(a1_rand,rand_noorder[ii]);
@@ -52,14 +49,15 @@ int main(){
             //printf("\nRand %d %d\n\n",contadorAvl, contadorB);
             rand_avl+=contadorAvl;
             rand_b+=contadorB;
+            printf("%d ",contadorAvl);
             contadorAvl=0;
             contadorB=0;
-            free(rand_noorder);
+            //free(rand_noorder);
         }
         rand_avl = (int)(rand_avl/SAMPLING);
         rand_b = (int)(rand_b/SAMPLING);
-        grafico_avl[i][0]=rand_avl;
-        grafico_b[i][0]=rand_b;
+        
+        printf(" | %d ",rand_avl);
         
         //====================
 
@@ -78,8 +76,9 @@ int main(){
         percorrerProfundidadeInOrder(a1_asc->raiz,visitar);
         percorreArvore(a2_asc->raiz);
         //printf("\nAsc %d %d\n\n",contadorAvl, contadorB);
-        grafico_avl[i][1]=contadorAvl;
-        grafico_b[i][1]=contadorB;
+        
+        printf("%d ",contadorAvl);
+
         contadorAvl=0;
         contadorB=0;
         //====================
@@ -90,28 +89,28 @@ int main(){
         percorrerProfundidadeInOrder(a1_desc->raiz,visitar);
         percorreArvore(a2_desc->raiz);
         //printf("\nDesc %d %d\n\n",contadorAvl, contadorB);
-        grafico_avl[i][2]=contadorAvl;
-        grafico_b[i][2]=contadorB;
+        printf("%d\n",contadorAvl);
         contadorAvl=0;
         contadorB=0;
 
-        freeAvl(a1_asc);
+        /*freeAvl(a1_asc);
         freeAvl(a1_desc);
         freeAvl(a1_rand);
         freeB(a2_asc);
         freeB(a2_desc);
         freeB(a2_rand);
         free(rand_asc);
-        free(rand_desc);
+        free(rand_desc);*/
         
+        //printf("\n||%d %d %d||\n",grafico_avl[0][0],grafico_avl[0][1],grafico_avl[0][2]);
     }
 
-    for(int i=0;i < 5;i++){
+    /*for(int i=0;i < 5;i++){
         for(int j=0;j < 3;j++){
             printf("%d ",grafico_avl[i][j]);
         }
         printf("\n");
-    }
+    }*/
     
     /*for(int iitt=0;iitt<5;iitt++){
         for(int iit=0;iit < 8;iit++){
