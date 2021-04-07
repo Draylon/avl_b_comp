@@ -79,8 +79,8 @@ int main(){
         contadorAvl=0;
         contadorB=0;
 
-        freeAvl(a1_asc,a1_asc->raiz);
-        freeAvl(a1_desc,a1_desc->raiz);
+        freeAvl(a1_asc);
+        freeAvl(a1_desc);
         freeAvl(a1_rand);
         freeB(a2_asc);
         freeB(a2_desc);

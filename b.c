@@ -164,3 +164,15 @@ void adicionaChave(ArvoreB* arvore, int chave) {
 
     adicionaChaveRecursivo(arvore, no, NULL, chave);
 }
+
+void freeB_rec(ArvoreB* arvore,BNode* no){
+    free(no->chaves);
+    for(int i=0;i < no->total;i++){
+        freeB_rec(arvore,no->filhos[i]);
+        free(no->filhos[i]);
+    }
+    free(no);
+}
+void freeB(ArvoreB* arvore){
+    freeB_rec(arvore,arvore->raiz);
+}
