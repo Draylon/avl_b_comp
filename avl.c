@@ -253,17 +253,15 @@ AvlNode* rdd(ArvoreAvl* arvore, AvlNode* no) {
 }
 
 void freeAvl_rec(ArvoreAvl* arvore,AvlNode* node){
-    if(node){
+    if(node!=NULL){
         freeAvl_rec(arvore,node->esquerda);
         freeAvl_rec(arvore,node->direita);
-        free(node->valor);
         free(node);
     }
 }
 
 void freeAvl(ArvoreAvl* arvore){
-    if(arvore->raiz != NULL)
-        freeAvl_rec(arvore,arvore->raiz);
+    freeAvl_rec(arvore,arvore->raiz);
     free(arvore);
 }
 
