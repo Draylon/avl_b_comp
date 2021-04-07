@@ -10,7 +10,7 @@ int* random_array(const int size,const int order){
     int* rand_array = malloc(sizeof(int)*size);
     int ii=0;
     while(ii < size){
-        int r_int = rand() % 200; // numeros de 0 a 200
+        int r_int = rand() % 100; // numeros de 0 a 200
 
         int match=0; // BOOL
         for(int iic=0;iic < ii;iic++){
@@ -34,7 +34,7 @@ int main(){
     srand(time(NULL));
 
     for(int i = 1;i <= RANGE;i++){
-        
+        printf("\n-\n");
         int rand_avl = 0,rand_b = 0;
         for(int it=0;it < SAMPLING;it++){
             ArvoreAvl* a1_rand = criar();
