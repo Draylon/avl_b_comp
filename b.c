@@ -34,7 +34,7 @@ void percorreArvore(BNode* no) {
         for (int i = 0; i < no->total; i++){
             percorreArvore(no->filhos[i]); //visita o filho a esquerda
             
-            printf("%d ",no->chaves[i]);
+            //printf("%d ",no->chaves[i]);
         }
 
         percorreArvore(no->filhos[no->total]); //visita ultimo filho (direita)
@@ -136,7 +136,6 @@ BNode* divideNo(ArvoreB* arvore, BNode* no) {
 }
 
 void adicionaChaveRecursivo(ArvoreB* arvore, BNode* no, BNode* novo, int chave) {
-    contadorB++;
     
     adicionaChaveNo(no, novo, chave);
     
@@ -167,14 +166,11 @@ void adicionaChave(ArvoreB* arvore, int chave) {
 
 void freeB_rec(ArvoreB* arvore,BNode* no){
     free(no->chaves);
-    printf("free chaves\n");
     for(int i=0;i < no->total;i++){
-        printf("free filho %d\n",i);
         if(no->filhos[i] != NULL){
             freeB_rec(arvore,no->filhos[i]);
             free(no->filhos[i]);
         }
-        printf("freed filho %d\n",i);
     }
     free(no);
 }

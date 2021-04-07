@@ -18,9 +18,9 @@ clean:
 cleanw:
 	del *.o
 
-del_main:
+delmain:
 	del main.exe
 
-run: del_main all
+run: delmain all
 	cls
 	main.exe

@@ -36,38 +36,48 @@ int main(){
     int grafico_avl[RANGE][3];
     int grafico_b[RANGE][3];
 
-    for(int i = 1;i <= 1;i++){
-
+    for(int i = 1;i <= 5;i++){
+        
+        int rand_avl = 0,rand_b = 0;
         ArvoreAvl* a1_rand = criar();
+        ArvoreB* a2_rand = criaArvore(1);
+        for(int it=0;it < SAMPLING;it++){
+            int* rand_noorder = random_array(i,0);
+            for(int ii=0; ii < i;ii++){
+                adicionar(a1_rand,rand_noorder[ii]);
+                adicionaChave(a2_rand,rand_noorder[ii]);
+            }
+            percorrerProfundidadeInOrder(a1_rand->raiz,visitar);
+            percorreArvore(a2_rand->raiz);
+            //printf("\nRand %d %d\n\n",contadorAvl, contadorB);
+            rand_avl+=contadorAvl;
+            rand_b+=contadorB;
+            contadorAvl=0;
+            contadorB=0;
+            free(rand_noorder);
+        }
+        rand_avl = (int)(rand_avl/SAMPLING);
+        rand_b = (int)(rand_b/SAMPLING);
+        grafico_avl[i][0]=rand_avl;
+        grafico_b[i][0]=rand_b;
+        
+        //====================
+
         ArvoreAvl* a1_asc = criar();
         ArvoreAvl* a1_desc = criar();
-        ArvoreB* a2_rand = criaArvore(1);
         ArvoreB* a2_asc = criaArvore(1);
         ArvoreB* a2_desc = criaArvore(1);
 
-        int* rand_noorder = random_array(i,0);
         int* rand_asc = random_array(i,1);
         int* rand_desc = random_array(i,-1);
 
-        for(int ii=0; ii < i;ii++){
-            adicionar(a1_rand,rand_noorder[ii]);
-            adicionaChave(a2_rand,rand_noorder[ii]);
-        }
-        percorrerProfundidadeInOrder(a1_rand->raiz,visitar);
-        percorreArvore(a2_rand->raiz);
-        printf("\nRand %d %d\n\n",contadorAvl, contadorB);
-        grafico_avl[i][0]=contadorAvl;
-        grafico_b[i][0]=contadorB;
-        contadorAvl=0;
-        contadorB=0;
-        //====================
         for(int ii=0; ii < i;ii++){
             adicionar(a1_asc,rand_asc[ii]);
             adicionaChave(a2_asc,rand_asc[ii]);
         }
         percorrerProfundidadeInOrder(a1_asc->raiz,visitar);
         percorreArvore(a2_asc->raiz);
-        printf("\nAsc %d %d\n\n",contadorAvl, contadorB);
+        //printf("\nAsc %d %d\n\n",contadorAvl, contadorB);
         grafico_avl[i][1]=contadorAvl;
         grafico_b[i][1]=contadorB;
         contadorAvl=0;
@@ -79,7 +89,7 @@ int main(){
         }
         percorrerProfundidadeInOrder(a1_desc->raiz,visitar);
         percorreArvore(a2_desc->raiz);
-        printf("\nDesc %d %d\n\n",contadorAvl, contadorB);
+        //printf("\nDesc %d %d\n\n",contadorAvl, contadorB);
         grafico_avl[i][2]=contadorAvl;
         grafico_b[i][2]=contadorB;
         contadorAvl=0;
@@ -91,9 +101,16 @@ int main(){
         freeB(a2_asc);
         freeB(a2_desc);
         freeB(a2_rand);
-        free(rand_noorder);
         free(rand_asc);
         free(rand_desc);
+        
+    }
+
+    for(int i=0;i < 5;i++){
+        for(int j=0;j < 3;j++){
+            printf("%d ",grafico_avl[i][j]);
+        }
+        printf("\n");
     }
     
     /*for(int iitt=0;iitt<5;iitt++){

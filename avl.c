@@ -19,7 +19,7 @@ AvlNode* adicionarNo(AvlNode* no, int valor) {
 
     if (valor > no->valor) {
         if (no->direita == NULL) {
-            printf("Adicionando %d\n",valor);
+            //printf("Adicionando %d\n",valor);
             AvlNode* novo = malloc(sizeof(AvlNode));
             novo->valor = valor;
             novo->pai = no;
@@ -34,7 +34,7 @@ AvlNode* adicionarNo(AvlNode* no, int valor) {
         }
     } else {
         if (no->esquerda == NULL) {
-            printf("Adicionando %d\n",valor);
+            //printf("Adicionando %d\n",valor);
             AvlNode* novo = malloc(sizeof(AvlNode));
             
 			novo->valor = valor;
@@ -51,7 +51,8 @@ AvlNode* adicionarNo(AvlNode* no, int valor) {
 
 AvlNode* adicionar(ArvoreAvl* arvore, int valor) {
     if (arvore->raiz == NULL) {
-        printf("Adicionando %d\n",valor);
+        contadorAvl++;
+        //printf("Adicionando %d\n",valor);
         AvlNode* novo = malloc(sizeof(AvlNode));
         novo->valor = valor;
         novo->direita=NULL;
@@ -133,7 +134,8 @@ void percorrerProfundidadePosOrder(AvlNode* no, void (*callback)(int)) {
 }
 
 void visitar(int valor){
-    printf("%d ", valor);
+    //printf("%d ", valor);
+    printf("");
 }
 
 void balanceamento(ArvoreAvl* arvore, AvlNode* no) {
@@ -142,19 +144,19 @@ void balanceamento(ArvoreAvl* arvore, AvlNode* no) {
         if (fator > 1) { //árvore mais pesada para esquerda
             //rotação para a direita
             if (fb(no->esquerda) > 0) {
-                printf("RSD(%d)\n",no->valor);
+                //printf("RSD(%d)\n",no->valor);
                 rsd(arvore, no); //rotação simples a direita, pois o FB do filho tem sinal igual
             } else {
-                printf("RDD(%d)\n",no->valor);
+                //printf("RDD(%d)\n",no->valor);
                 rdd(arvore, no); //rotação dupla a direita, pois o FB do filho tem sinal diferente
             }
         } else if (fator < -1) { //árvore mais pesada para a direita
             //rotação para a esquerda
             if (fb(no->direita) < 0) {
-                printf("RSE(%d)\n",no->valor);
+                //printf("RSE(%d)\n",no->valor);
                 rse(arvore, no); //rotação simples a esquerda, pois o FB do filho tem sinal igual
             } else {
-                printf("RDE(%d)\n",no->valor);
+                //printf("RDE(%d)\n",no->valor);
                 rde(arvore, no); //rotação dupla a esquerda, pois o FB do filho tem sinal diferente
             }
         }
