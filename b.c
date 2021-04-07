@@ -179,4 +179,5 @@ void freeB(ArvoreB* arvore){
     if(arvore->raiz != NULL){
         freeB_rec(arvore,arvore->raiz);
     }
+    free(arvore);
 }
