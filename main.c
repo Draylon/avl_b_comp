@@ -33,7 +33,7 @@ int* random_array(const int size,const int order){
 int main(){
     srand(time(NULL));
 
-    for(int i = 1;i <= 5;i++){
+    for(int i = 1;i <= RANGE;i++){
         
         int rand_avl = 0,rand_b = 0;
         for(int it=0;it < SAMPLING;it++){
@@ -49,15 +49,16 @@ int main(){
             //printf("\nRand %d %d\n\n",contadorAvl, contadorB);
             rand_avl+=contadorAvl;
             rand_b+=contadorB;
-            printf("%d ",contadorAvl);
+            //printf("%d ",contadorAvl);
             contadorAvl=0;
             contadorB=0;
-            //free(rand_noorder);
+            free(rand_noorder);
         }
         rand_avl = (int)(rand_avl/SAMPLING);
         rand_b = (int)(rand_b/SAMPLING);
         
-        printf(" | %d ",rand_avl);
+        //printf(" | %d ",rand_avl);
+        printf("%d - %d ",i,rand_avl);
         
         //====================
 
@@ -93,14 +94,12 @@ int main(){
         contadorAvl=0;
         contadorB=0;
 
-        /*freeAvl(a1_asc);
+        freeAvl(a1_asc);
         freeAvl(a1_desc);
-        freeAvl(a1_rand);
         freeB(a2_asc);
         freeB(a2_desc);
-        freeB(a2_rand);
         free(rand_asc);
-        free(rand_desc);*/
+        free(rand_desc);
         
         //printf("\n||%d %d %d||\n",grafico_avl[0][0],grafico_avl[0][1],grafico_avl[0][2]);
     }
