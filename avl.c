@@ -7,6 +7,7 @@ contadorAvl=0;
 ArvoreAvl* criar() {
     ArvoreAvl *arvore = malloc(sizeof(ArvoreAvl));
     arvore->raiz = NULL;
+  
     return arvore;
 }
 
@@ -15,17 +16,15 @@ int vazia(ArvoreAvl* arvore) {
 }
 
 AvlNode* adicionarNo(AvlNode* no, int valor) {
-    contadorAvl++;
-
     if (valor > no->valor) {
         if (no->direita == NULL) {
-            //printf("Adicionando %d\n",valor);
+            //printf("Adiciona_NO %d\n",valor);
             AvlNode* novo = malloc(sizeof(AvlNode));
             novo->valor = valor;
             novo->pai = no;
-            novo->esquerda=NULL;
             novo->direita=NULL;
-
+            novo->esquerda=NULL;
+            novo->altura = altura(no)+1;
             no->direita = novo;
 				
             return novo;
@@ -34,14 +33,15 @@ AvlNode* adicionarNo(AvlNode* no, int valor) {
         }
     } else {
         if (no->esquerda == NULL) {
-            //printf("Adicionando %d\n",valor);
+            //printf("Adiciona_NO %d\n",valor);
             AvlNode* novo = malloc(sizeof(AvlNode));
-            
 			novo->valor = valor;
             novo->pai = no;
-			novo->direita=NULL;
+            novo->direita=NULL;
             novo->esquerda=NULL;
+            novo->altura = altura(no)+1;
             no->esquerda = novo;
+			
             return novo;
         } else {
             return adicionarNo(no->esquerda, valor);
@@ -50,18 +50,19 @@ AvlNode* adicionarNo(AvlNode* no, int valor) {
 }
 
 AvlNode* adicionar(ArvoreAvl* arvore, int valor) {
+    contadorAvl++;
     if (arvore->raiz == NULL) {
-        contadorAvl++;
         //printf("Adicionando %d\n",valor);
         AvlNode* novo = malloc(sizeof(AvlNode));
         novo->valor = valor;
-        novo->direita=NULL;
         novo->esquerda=NULL;
+        novo->direita=NULL;
         novo->pai=NULL;
+        novo->altura=1;
         arvore->raiz = novo;
-		
+			
         return novo;
-    }else{
+    } else {
         AvlNode* no = adicionarNo(arvore->raiz, valor);
         balanceamento(arvore, no);
         
@@ -70,20 +71,25 @@ AvlNode* adicionar(ArvoreAvl* arvore, int valor) {
 }
 
 void remover(ArvoreAvl* arvore, AvlNode* no) {
+    //printf("no %d\n",no->valor);
     if (no->esquerda != NULL) {
+        //printf("a esq ");
         remover(arvore, no->esquerda); 
     }
-  
     if (no->direita != NULL) {
+        //printf("a dir ");
         remover(arvore, no->direita);
     }
   
     if (no->pai == NULL) {
+        //printf("\nraiz");
         arvore->raiz = NULL;
     } else {
         if (no->pai->esquerda == no) {
+            //printf("\ntirando %d da esquerda do pai %d\n",no->valor,no->pai->valor);
             no->pai->esquerda = NULL;
         } else {
+            //printf("\ntirando %d da direita do pai %d\n",no->valor,no->pai->valor);
             no->pai->direita = NULL;
         }
     }
@@ -109,11 +115,19 @@ AvlNode* localizar(AvlNode* no, int valor) {
     return NULL;
 }
 
-void percorrerProfundidadeInOrder(AvlNode* no, void (*callback)(int)) {
+void printOrder(AvlNode* node){
+    if(node){
+        printOrder(node->esquerda);
+        //printf("%d ",node->valor);
+        printOrder(node->direita);
+    }
+}
+
+void percorrerProfundidadeInOrder(AvlNode* no) {
     if (no != NULL) {
-        percorrerProfundidadeInOrder(no->esquerda,callback);
-        callback(no->valor);
-        percorrerProfundidadeInOrder(no->direita,callback);
+        percorrerProfundidadeInOrder(no->esquerda);
+        visitar(no->valor);
+        percorrerProfundidadeInOrder(no->direita);
     }
 }
 
@@ -125,7 +139,7 @@ void percorrerProfundidadePreOrder(AvlNode* no, void (*callback)(int)) {
     }
 }
 
-void percorrerProfundidadePosOrder(AvlNode* no, void (*callback)(int)) {
+void percorrerProfundidadePosOrder(AvlNode* no, void (callback)(int)) {
     if (no != NULL) {
         percorrerProfundidadePosOrder(no->esquerda,callback);
         percorrerProfundidadePosOrder(no->direita,callback);
@@ -133,14 +147,15 @@ void percorrerProfundidadePosOrder(AvlNode* no, void (*callback)(int)) {
     }
 }
 
+
 void visitar(int valor){
-    //printf("%d ", valor);
-    printf("");
+    printf("%d ",valor);
 }
 
 void balanceamento(ArvoreAvl* arvore, AvlNode* no) {
     while (no != NULL) {
         int fator = fb(no);
+
         if (fator > 1) { //árvore mais pesada para esquerda
             //rotação para a direita
             if (fb(no->esquerda) > 0) {
@@ -160,12 +175,11 @@ void balanceamento(ArvoreAvl* arvore, AvlNode* no) {
                 rde(arvore, no); //rotação dupla a esquerda, pois o FB do filho tem sinal diferente
             }
         }
-        no = no->pai;
+        no = no->pai; 
     }
 }
 
 int altura(AvlNode* no){
-    contadorAvl++;
     int esquerda = 0,direita = 0;
 
     if (no->esquerda != NULL) {
@@ -179,7 +193,7 @@ int altura(AvlNode* no){
     return esquerda > direita ? esquerda : direita; //max(esquerda,direita)
 }
 
-int fb(AvlNode* no) { // acho que não conta como operação
+int fb(AvlNode* no) {
     int esquerda = 0,direita = 0;
   
     if (no->esquerda != NULL) {
@@ -189,6 +203,7 @@ int fb(AvlNode* no) { // acho que não conta como operação
     if (no->direita != NULL) {
         direita = altura(no->direita) + 1;
     }
+  
     return esquerda - direita;
 }
 
@@ -252,36 +267,7 @@ AvlNode* rdd(ArvoreAvl* arvore, AvlNode* no) {
     return rsd(arvore, no);
 }
 
-void freeAvl_rec(ArvoreAvl* arvore,AvlNode* node){
-    if(node!=NULL){
-        printf("free %d\n",node->valor);
-        printf("esquerda\n");
-        freeAvl_rec(arvore,node->esquerda);
-        printf("direita\n");
-        freeAvl_rec(arvore,node->direita);
-        free(node);
-        printf("freed node\n");
-    }else{
-        printf("null free");
-    }
-}
-
 void freeAvl(ArvoreAvl* arvore){
-    printf("raiz %d\n",arvore->raiz->valor);
-    freeAvl_rec(arvore,arvore->raiz);
-    printf("freed nodes\n");
+    remover(arvore,arvore->raiz);
     free(arvore);
-    printf("freed tree\n");
 }
-
-/*int main() {
-    ArvoreAvl* a = criar();
-
-    for (int i = 1; i <= 7; i++) {
-        adicionar(a,i);  
-    }
-
-    printf("In-order: ");
-    percorrerProfundidadeInOrder(a->raiz,visitar);
-    printf("\n");
-}*/

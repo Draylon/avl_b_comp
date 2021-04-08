@@ -30,6 +30,5 @@ void adicionaChaveRecursivo(ArvoreB*, BNode*, BNode*, int);
 void adicionaChave(ArvoreB*, int);
 
 void freeB();
-void freeB_rec();
 
 #endif

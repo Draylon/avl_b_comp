@@ -3,14 +3,14 @@
 #include <stdlib.h>
 #include "avl.h"
 //#include "b.h"
-#define SAMPLING 10
+#define SAMPLING 1
 #define RANGE 100
 
 int* random_array(const int size,const int order){
     int* rand_array = malloc(sizeof(int)*size);
     int ii=0;
     while(ii < size){
-        int r_int = rand() % 100; // numeros de 0 a 100
+        int r_int = rand() % 200; // numeros de 0 a 100
 
         int match=0; // BOOL
         for(int iic=0;iic < ii;iic++){
@@ -37,30 +37,38 @@ int* random_array(const int size,const int order){
 int main(){
     srand(time(NULL));
 
-    ArvoreAvl* a1 = criar();
+    /*ArvoreAvl* a1 = criar();
     int* rand_asd = random_array(100,0);
     for(int i=0;i < 100;i++){
         adicionar(a1,rand_asd[i]);
+        printf("\nNumero de operacoes %d\n",contadorAvl);
     }
+    for (int i = 0; i < 50; i++) {
+        adicionar(a1,i); 
+        adicionar(a1,99-i);  
+    }
+    printf("altura %d\n",altura(a1->raiz));
     percorrerProfundidadeInOrder(a1->raiz,visitar);
     printf("\nNumero de operacoes %d\n\n",contadorAvl);
-    freeAvl(a1);
-    free(rand_asd);
+    freeAvl(a1);*/
+    //free(rand_asd);
 
-    /*
-
-    for(int i = RANGE-1;i >= 0;i--){
-        printf("\n-\n");
+    for(int i = 1;i <= RANGE;i++){
+        
         int rand_avl = 0,rand_b = 0;
         for(int it=0;it < SAMPLING;it++){
             ArvoreAvl* a1_rand = criar();
             //ArvoreB* a2_rand = criaArvore(1);
             int* rand_noorder = random_array(i,0);
+            //printf("rand\n");
             for(int ii=0; ii < i;ii++){
+                //printf("%d ",rand_noorder[ii]);
                 adicionar(a1_rand,rand_noorder[ii]);
                 //adicionaChave(a2_rand,rand_noorder[ii]);
             }
-            percorrerProfundidadeInOrder(a1_rand->raiz,visitar);
+            //printf("\nperc\n");
+            printOrder(a1_rand->raiz);
+            //printf("\n\n");
             //percorreArvore(a2_rand->raiz);
             //printf("\nRand %d %d\n\n",contadorAvl, contadorB);
             rand_avl+=contadorAvl;
@@ -72,11 +80,12 @@ int main(){
             //freeB(a2_rand);
             free(rand_noorder);
         }
+        printf("\n");
         rand_avl = (int)(rand_avl/SAMPLING);
         rand_b = (int)(rand_b/SAMPLING);
         
         //printf(" | %d ",rand_avl);
-        printf("%d - %d ",i,rand_avl);
+        printf("%d %d ",i,rand_avl);
         
         //====================
 
@@ -92,11 +101,11 @@ int main(){
             adicionar(a1_asc,rand_asc[ii]);
             //adicionaChave(a2_asc,rand_asc[ii]);
         }
-        percorrerProfundidadeInOrder(a1_asc->raiz,visitar);
+        //printOrder(a1_asc->raiz);
         //percorreArvore(a2_asc->raiz);
         //printf("\nAsc %d %d\n\n",contadorAvl, contadorB);
         
-        printf("%d ",contadorAvl);
+        printf("%d %d ",i,contadorAvl);
 
         contadorAvl=0;
         //contadorB=0;
@@ -105,7 +114,7 @@ int main(){
             adicionar(a1_desc,rand_desc[ii]);
             //adicionaChave(a2_desc,rand_desc[ii]);
         }
-        percorrerProfundidadeInOrder(a1_desc->raiz,visitar);
+        //printOrder(a1_desc->raiz);
         //percorreArvore(a2_desc->raiz);
         //printf("\nDesc %d %d\n\n",contadorAvl, contadorB);
         printf("%d\n",contadorAvl);

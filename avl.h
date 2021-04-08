@@ -8,6 +8,7 @@ typedef struct noavl {
     struct noavl* esquerda;
     struct noavl* direita;
     int valor;
+    int altura;
 } AvlNode;
 
 typedef struct arvore {
@@ -20,7 +21,7 @@ AvlNode* adicionarNo(AvlNode* no,int valor);
 AvlNode* adicionar(ArvoreAvl* arvore,int valor);
 void remover(ArvoreAvl* arvore,AvlNode* no);
 AvlNode* localizar(AvlNode* no, int valor);
-void percorrerProfundidadeInOrder(AvlNode* no, void(*callback) (int));
+void percorrerProfundidadeInOrder(AvlNode* no);
 void percorrerProfundidadePreOrder(AvlNode* no, void(*callback) (int));
 void percorrerProfundidadePosOrder(AvlNode* no, void(*callback) (int));
 void visitar(int valor);
@@ -32,7 +33,6 @@ AvlNode* rse(ArvoreAvl*, AvlNode*);
 AvlNode* rdd(ArvoreAvl*, AvlNode*);
 AvlNode* rde(ArvoreAvl*, AvlNode*);
 
-void freeAvl();
-void freeAvl_rec();
+void freeAvl(ArvoreAvl*);
 
 #endif
