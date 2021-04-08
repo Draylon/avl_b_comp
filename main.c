@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include "avl.h"
-//#include "b.h"
+#include "b_tree.c"
 #define SAMPLING 1
 #define RANGE 100
 
@@ -130,6 +130,28 @@ int main(){
         
         //printf("\n||%d %d %d||\n",grafico_avl[0][0],grafico_avl[0][1],grafico_avl[0][2]);
     }
+
+    /*
+    * B TREE
+    */
+    ArvoreB* tree = criar();
+ 
+    int *array = random_array(100, 0);
+
+    for(int iasd=0;iasd < 100;iasd++){
+        printf("%d ",array[iasd]);
+    }
+    printf("\n");
+
+    // int array[100] = {62,44,60,84,23,21,1,50,43,88,56,86,61,80,35,0,18,38,16,97,70,59,98,36,66,19,63,28,15,75,65,90,49,93,92,6,55,68,51,41,67,89,85,83,58,7,11,52,3,34,2,5,39,77,24,45,30,9,79,78,4,10,8,14,94,12,33,53,73,42,74,20,29,26,54,17,27,25,64,48,81,96,22,47,37,13,57,99,31,69,32,71,76,87,40,82,95,46,91,72};
+
+    for (int i = 0; i < 100; i++) {
+        adicionar(tree,array[i]);  
+    }
+
+    printf("Altura : %d\n", altura(tree->raiz));
+    printf("Total operações: %d\n", count_total_op);
+    remover(tree, tree->raiz);
 
 
     /*for(int i=0;i < 5;i++){
